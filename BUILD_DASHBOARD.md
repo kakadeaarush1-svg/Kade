@@ -112,17 +112,17 @@ A circular SVG progress ring that fills throughout the day, paired with a text c
 - RIGHT (max-width 280px column, 6px gap):
   - **Status line**: 14px primary text, weight 700.
   - **Remaining time**: 12px mono, secondary text.
-  - **Hours range**: 11px mono, tertiary text — static text `8:00 AM – 12:00 AM`.
+  - **Hours range**: 11px mono, tertiary text — static text `6:00 AM – 11:00 AM`.
 - On screens ≤ 480px: ring shrinks to 144×144, percentage to 32px, status to 13px.
 
 **Behavior**
-- The "awake window" runs 8:00 AM → midnight (16 hours = 100%). Define `WAKE_HOUR = 8` and `SLEEP_HOUR = 24` as constants at the top so they're easy to tweak.
+- The "awake window" runs 6:00 AM → 11:00 AM (5 hours = 100%). Define `WAKE_HOUR = 6` and `SLEEP_HOUR = 11` as constants at the top so they're easy to tweak.
 - Compute current hours as `now.getHours() + now.getMinutes()/60 + now.getSeconds()/3600`.
 
   | Time | Behavior |
   |---|---|
   | Before 8 AM | Empty ring, dim slate stroke `#4D4B47`, percentage shows `—`, phase `SLEEPING`, status `😴 Still sleeping`, remaining shows `Xh Ym until wake-up`. |
-  | 8 AM – midnight | Fill the ring proportionally. `percent = (hours - 8) / 16 * 100`. Stroke color is interpolated from a 9-stop sun-cycle palette (see below). Phase + status by quartile. Remaining shows `Xh Ym awake time left`. |
+  | 8 AM – midnight | Fill the ring proportionally. `percent = (hours - 6) / 5 * 100`. Stroke color is interpolated from a 9-stop sun-cycle palette (see below). Phase + status by quartile. Remaining shows `Xh Ym awake time left`. |
   | After midnight (shouldn't normally hit before resetting) | Ring full, stroke `#E25D7A`, phase `PAST BEDTIME`, status `⚠️ Past bedtime`, remaining shows `Sleep!`. |
 
 - **Sun-cycle palette stops** — interpolate linearly between the two adjacent stops based on the current percent:
